@@ -2,11 +2,12 @@ const http = require("http");
 const https = require("https");
 const url = require("url");
 const cheerio = require("cheerio");
+require('dotenv').config();
 
 // Usage: http://localhost:3000/index.html?url=https://github.com/matichewer/PDF-Password-Remover
 
-const hostname = "127.0.0.1";
-const port = 3000;
+const hostname = process.env.HOST_NAME || 'localhost';
+const port = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
