@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  nodejs_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: github-preview
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
