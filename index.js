@@ -4,29 +4,31 @@ const url = require("url");
 const cheerio = require("cheerio");
 require('dotenv').config();
 
-// Usage: http://localhost:3000/index.html?url=https://github.com/matichewer/PDF-Password-Remover
-
 const hostname = process.env.HOST_NAME || 'localhost';
 const port = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
-  const targetUrl = parsedUrl.query.url;
+  const username = parsedUrl.pathname.split('/')[1];
+  const repoName = parsedUrl.pathname.split('/')[2];
 
-  if (!targetUrl) {
+  if (!username || !repoName) {
     res.statusCode = 400;
-    res.end("Bad Request: Missing URL parameter");
+    res.end("Bad Request: Missing username or repo name");
     return;
   }
+
+  // Construct GitHub URL from username and repoName
+  const githubUrl = `https://github.com/${username}/${repoName}`;
 
   const requestOptions = {
     method: "GET",
     headers: {
-      "User-Agent": "Mozilla/5.0", // Set a user agent to prevent some servers from blocking the request
+      "User-Agent": "Mozilla/5.0",
     },
   };
 
-  const proxyReq = https.request(targetUrl, requestOptions, (proxyRes) => {
+  const proxyReq = https.request(githubUrl, requestOptions, (proxyRes) => {
     let responseData = "";
 
     proxyRes.on("data", (chunk) => {
@@ -34,25 +36,21 @@ const server = http.createServer((req, res) => {
     });
 
     proxyRes.on("end", () => {
-      // Load HTML into cheerio
       const $ = cheerio.load(responseData);
 
-      // Extract Open Graph meta tags
       const title = $('meta[property="og:title"]').attr("content") || "";
       const description =
         $('meta[property="og:description"]').attr("content") || "";
       const imageUrl = $('meta[property="og:image"]').attr("content") || "";
 
-      // Construct JSON response
       const jsonResponse = {
         title: title,
         description: description,
         imageUrl: imageUrl,
       };
 
-      // Set response headers and send JSON response
       res.setHeader("Content-Type", "application/json");
-      res.setHeader("Access-Control-Allow-Origin", "*"); // Allow CORS from any origin
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.end(JSON.stringify(jsonResponse));
     });
   });
