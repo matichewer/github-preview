@@ -7,7 +7,8 @@ Get github repositories previews.
 - https://github-preview.chewer.net/
 
 ## Usage
-https://github-preview.onrender.com/ < git user > / < repo name >
+https://github-preview.onrender.com/'<git user>'/'<repo name>'
+
 
 ## Examples
 Go to
