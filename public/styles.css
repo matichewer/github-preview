@@ -10,8 +10,11 @@ body {
     background-color: #f4f4f4;
 }
 
-h1 {
-    color: #333;
+h2 {
+    margin-top: 0; /* Elimina el margen superior predeterminado */
+    margin-bottom: 20px; /* Espacio debajo del h2 */
+    font-size: 1.5rem; /* Tamaño de fuente */
+    color: #333; /* Color de texto */
 }
 
 p {
@@ -24,6 +27,8 @@ form {
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
 }
 
 label {
@@ -32,23 +37,83 @@ label {
 }
 
 input[type="text"] {
-    width: 100%;
+    width: calc(100% - 22px); /* Ajusta el ancho del input */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
-
 button {
+    width: 100%; /* El botón ocupa todo el ancho */
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 3px;
-    padding: 10px 20px;
+    padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Transición suave del color de fondo */
 }
 
 button:hover {
     background-color: #0056b3;
 }
+
+
+header {
+    background-color: #333333;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+header h1 {
+    margin: 0;
+    color: #fff;
+}
+
+h2 {
+    margin-top: 0; /* Elimina el margen superior predeterminado */
+    margin-bottom: 20px; /* Espacio debajo del h2 */
+    font-size: 1.5rem; /* Tamaño de fuente */
+    color: #333; /* Color de texto */
+    text-align: center;
+}
+
+/* Estilos para el main */
+main {
+    margin-top: 80px; /* Para dejar espacio debajo del header */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  /*  text-align: center; */
+}
+
+/* Estilos para el footer */
+footer {
+    background-color: #333333;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  footer p {
+    margin: 0;
+    color: #fff;
+  }
+  
+  footer a {
+    color: #007bff; /* Cambia el color del enlace según tu preferencia */
+    text-decoration: none;
+  }
+  
+  footer a:hover {
+    text-decoration: underline; /* Subraya el enlace al pasar el mouse sobre él */
+  }
+  
