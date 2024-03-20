@@ -117,3 +117,10 @@ footer {
     text-decoration: underline; /* Subraya el enlace al pasar el mouse sobre él */
   }
   
+
+  @media (max-width: 768px) { /* Cambia el valor según el ancho deseado para dispositivos móviles */
+    header,
+    footer {
+        position: static; /* Cambia la posición a estática en dispositivos móviles */
+    }
+}
