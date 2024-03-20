@@ -1,24 +1,32 @@
+const express = require("express");
 const http = require("http");
 const https = require("https");
+const fs = require("fs");
+const path = require("path");
 const url = require("url");
 const cheerio = require("cheerio");
-require('dotenv').config();
+require("dotenv").config();
 
-const hostname = process.env.HOST_NAME || 'localhost';
+const hostname = process.env.HOST_NAME || "localhost";
 const port = process.env.PORT || 3000;
 
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  const username = parsedUrl.pathname.split('/')[1];
-  const repoName = parsedUrl.pathname.split('/')[2];
+const app = express();
+app.use(express.static("public"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
-  if (!username || !repoName) {
-    res.statusCode = 400;
-    res.end("Bad Request: Missing username or repo name");
+app.get("/:user/:repo", async (req, res) => {
+  console.log("Processing...");
+  const username = req.params.user;
+  const repoName = req.params.repo;
+
+  const repoCheckResult = await checkRepoExists(username, repoName);
+  if (repoCheckResult.error) {
+    res.status(404).json({ error: repoCheckResult.error });
     return;
   }
 
-  // Construct GitHub URL from username and repoName
   const githubUrl = `https://github.com/${username}/${repoName}`;
 
   const requestOptions = {
@@ -63,6 +71,30 @@ const server = http.createServer((req, res) => {
 
   proxyReq.end();
 });
+
+async function checkRepoExists(username, repoName) {
+  const apiUrl = `https://api.github.com/repos/${username}/${repoName}`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+
+    if (data.message === "Not Found") {
+      const msg = "Repository not found. Check username and repository name";
+      console.error(msg);
+      return { error: msg };
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    return {
+      error: "Network error",
+    };
+  }
+  return { success: true };
+}
+
+
+const server = http.createServer(app);
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);

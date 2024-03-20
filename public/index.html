@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Preview</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Github Preview!</h1>
+    <form id="githubForm" method="GET">
+        <label for="username">GitHub Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="repository">Repository Name:</label>
+        <input type="text" id="repository" name="repository" required>
+        <br>
+        <button type="submit">Preview</button>
+    </form>
+
+    <script>
+        document.getElementById('githubForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previene el envío del formulario
+            const username = document.getElementById('username').value;
+            const repository = document.getElementById('repository').value;
+            window.location.href = `/${username}/${repository}`;
+        });
+    </script>
+</body>
+</html>
