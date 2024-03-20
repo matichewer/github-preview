@@ -3,7 +3,7 @@
 Get github repositories previews.
 
 ## Deploys
-- https://github-preview.onrender.com/
+- https://github-preview.onrender.com
 - https://github-preview.chewer.net/
 
 ## Usage
