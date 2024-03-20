@@ -4,7 +4,7 @@ Get github repositories previews.
 
 ## Deploys
 - https://github-preview.onrender.com
-- https://github-preview.chewer.net/
+- https://github-preview.chewer.net
 
 ## Usage
 https://github-preview.onrender.com/ < git user > / < repo name > 
