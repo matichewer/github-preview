@@ -14,28 +14,32 @@
     </header>
 
     <main>
-        <h2>Enter your GitHub username and repository name</h2>
+        <h2>Enter your GitHub repository link</h2>
         <form id="githubForm" method="GET">
-            <label for="username">GitHub Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
-            <label for="repository">Repository Name:</label>
-            <input type="text" id="repository" name="repository" required>
+            <label for="repositoryLink">GitHub Repository Link:</label>
+            <input type="text" id="repositoryLink" name="repositoryLink" required>
             <br>
             <button type="submit">Preview</button>
         </form>
     </main>
 
     <footer>
-        <p>View this project on <a href="https://github.com/matichewer/github-preview target=" _blank">GitHub</a></p>
+        <p>View this project on <a href="https://github.com/matichewer/github-preview" target="_blank">GitHub</a></p>
     </footer>
 
     <script>
         document.getElementById('githubForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Previene el envío del formulario
-            const username = document.getElementById('username').value;
-            const repository = document.getElementById('repository').value;
-            window.location.href = `/${username}/${repository}`;
+            event.preventDefault(); // Prevent form submission
+            const repositoryLink = document.getElementById('repositoryLink').value;
+            // Extract username and repository name from the link
+            const match = repositoryLink.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+            if (match && match.length === 3) {
+                const username = match[1];
+                const repository = match[2];
+                window.location.href = `/${username}/${repository}`;
+            } else {
+                alert('Please enter a valid GitHub repository link.');
+            }
         });
     </script>
 </body>

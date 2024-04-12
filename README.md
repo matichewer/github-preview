@@ -48,6 +48,11 @@ npm install
 npm start
 ```
 
+#### With NPM for dev
+```
+npm run dev
+```
+
 #### Example
 http://localhost:3000/matichewer/PDF-Password-Remover
 
