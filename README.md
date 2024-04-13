@@ -2,15 +2,16 @@
 
 Get github repositories previews.
 
-## Deploys
-- https://github-preview.onrender.com
-- https://github-preview.chewer.net
 
 ## Usage
+Open in your browser the next link
+
+```
 https://github-preview.onrender.com/ < git user > / < repo name > 
+```
 
 
-## Examples
+### Example
 Go to
 ```
 https://github-preview.onrender.com/matichewer/PDF-Password-Remover
@@ -24,6 +25,19 @@ And you get something like this:
 }
 ```
 
+The link in the parameter 'imageUrl' is the next image:
+<p align="center">
+  <img src="assets/image.png" width="600">
+</p>
+
+---
+
+## Deploys
+- https://github-preview.onrender.com
+- https://github-preview.chewer.net
+
+---
+  
 ## Run locally
 ### Download
 ```
@@ -42,17 +56,21 @@ PORT=3000
 docker compose up -d
 ```
 
-#### With NPM
+#### With npm
+Install dependencies
 ```
 npm install
+```
+Run in production
+```
 npm start
 ```
 
-#### With NPM for dev
+Run in dev
 ```
 npm run dev
 ```
+And you can test it:
 
-#### Example
 http://localhost:3000/matichewer/PDF-Password-Remover
 
